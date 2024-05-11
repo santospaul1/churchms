@@ -1,0 +1,18 @@
+<!-- In your Django app's templates/groups/group_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group List</title>
+</head>
+<body>
+    <h1>Group List</h1>
+    <ul>
+        {% for group in groups %}
+            <li>{{ group.name }} - {{ group.description }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_group' %}">Add Group</a>
+</body>
+</html>

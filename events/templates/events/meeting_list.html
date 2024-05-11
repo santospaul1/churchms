@@ -1,0 +1,18 @@
+<!-- In your Django app's templates/events/meeting_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting List</title>
+</head>
+<body>
+    <h1>Meeting List</h1>
+    <ul>
+        {% for meeting in meetings %}
+            <li>{{ meeting.name }} - {{ meeting.date }} at {{ meeting.time }} - {{ meeting.location }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_meeting' %}">Add Meeting</a>
+</body>
+</html>

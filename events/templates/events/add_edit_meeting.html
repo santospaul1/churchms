@@ -1,0 +1,17 @@
+<!-- In your Django app's templates/events/add_edit_meeting.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if form.instance.pk %}Edit Meeting{% else %}Add Meeting{% endif %}</title>
+</head>
+<body>
+    <h1>{% if form.instance.pk %}Edit Meeting{% else %}Add Meeting{% endif %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>

@@ -1,6 +1,6 @@
 # In events/forms.py
 from django import forms
-from .models import Event
+from .models import Event, Meeting, Service
 
 class EventForm(forms.ModelForm):
     class Meta:
@@ -10,3 +10,12 @@ class EventForm(forms.ModelForm):
             'date': forms.DateInput(attrs={'type': 'date'}),
             'time': forms.TimeInput(attrs={'type': 'time'}),
         }
+class ServiceForm(forms.ModelForm):
+    class Meta:
+        model = Service
+        fields = ['name', 'date', 'time', 'location', 'description']
+
+class MeetingForm(forms.ModelForm):
+    class Meta:
+        model = Meeting
+        fields = ['name', 'date', 'time', 'location', 'description']

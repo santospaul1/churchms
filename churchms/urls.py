@@ -17,8 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from communications.views import conversation_list
 from donations.views import donation_list
 from events.views import event_list
+from groups.views import group_list
+from management.views import facility_list
 from members.views import member_detail, member_list
 from volunteers.views import volunteer_list
 
@@ -27,6 +30,9 @@ path('', member_list, name='member_list'),
 path('events/', event_list, name='event_list'),
 path('volunteers/', volunteer_list, name='volunteer_list'),
 path('donations/', donation_list, name='donation_list'),
+path('communications/', conversation_list, name='conversation_list'),
+path('management/', facility_list, name='facility_list'),
+path('groups/', group_list, name='group_list'),
 
     
     path('admin/', admin.site.urls),
@@ -35,6 +41,9 @@ path('donations/', donation_list, name='donation_list'),
     path('events/', include('events.urls')),
     path('volunteers/', include('volunteers.urls')),
     path('donations/', include('donations.urls')),
+    path('communications/', include('communications.urls')),
+    path('management/', include('management.urls')),
+    path('groups/', include('groups.urls')),
 
     
 ]
