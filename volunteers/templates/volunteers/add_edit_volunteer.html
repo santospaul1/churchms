@@ -1,0 +1,17 @@
+<!-- volunteers/templates/volunteers/add_edit_volunteer.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if form.instance.pk %}Edit Volunteer{% else %}Add Volunteer{% endif %}</title>
+</head>
+<body>
+    <h1>{% if form.instance.pk %}Edit Volunteer{% else %}Add Volunteer{% endif %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>

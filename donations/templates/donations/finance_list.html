@@ -1,0 +1,18 @@
+<!-- donations/templates/donations/finance_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Transactions</title>
+</head>
+<body>
+    <h1>Financial Transactions</h1>
+    <ul>
+        {% for transaction in transactions %}
+            <li>{{ transaction.amount }} - {{ transaction.description }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_transaction' %}">Add Transaction</a>
+</body>
+</html>

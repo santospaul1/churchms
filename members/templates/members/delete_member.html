@@ -1,0 +1,18 @@
+<!-- members/templates/members/delete_member.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Member</title>
+</head>
+<body>
+    <h1>Delete Member</h1>
+    <p>Are you sure you want to delete {{ member.first_name }} {{ member.last_name }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, Delete</button>
+    </form>
+    <a href="{% url 'member_detail' member.id %}">Cancel</a>
+</body>
+</html>

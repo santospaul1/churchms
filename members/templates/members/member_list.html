@@ -1,0 +1,20 @@
+<!-- members/templates/members/member_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member List</title>
+</head>
+<body>
+    <h1>Member List</h1>
+    <ul>
+        {% for member in members %}
+            <li>
+                <a href="{% url 'member_detail' member.id %}">{{ member.first_name }} {{ member.last_name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_member' %}">Add Member</a>
+</body>
+</html>

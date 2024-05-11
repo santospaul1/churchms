@@ -1,0 +1,18 @@
+<!-- members/templates/members/member_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Detail</title>
+</head>
+<body>
+    <h1>Member Detail</h1>
+    <p><strong>Name:</strong> {{ member.first_name }} {{ member.last_name }}</p>
+    <p><strong>Email:</strong> {{ member.email }}</p>
+    <p><strong>Phone Number:</strong> {{ member.phone_number }}</p>
+    <p><strong>Address:</strong><br>{{ member.address }}</p>
+    <a href="{% url 'edit_member' member.id %}">Edit</a>
+    <a href="{% url 'delete_member' member.id %}">Delete</a>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!-- volunteers/templates/volunteers/volunteer_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer List</title>
+</head>
+<body>
+    <h1>Volunteer List</h1>
+    <ul>
+        {% for volunteer in volunteers %}
+            <li>
+                <a href="{% url 'volunteer_detail' volunteer.id %}">{{ volunteer.first_name }} {{ volunteer.last_name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_volunteer' %}">Add Volunteer</a>
+</body>
+</html>
