@@ -7,12 +7,16 @@
     <title>Delete Member</title>
 </head>
 <body>
+    
     <h1>Delete Member</h1>
+
     <p>Are you sure you want to delete {{ member.first_name }} {{ member.last_name }}?</p>
     <form method="post">
         {% csrf_token %}
-        <button type="submit">Yes, Delete</button>
+        <button type="submit" class="btn btn-sm btn-danger">Yes, Delete</button>
     </form>
-    <a href="{% url 'member_detail' member.id %}">Cancel</a>
+    
+    <a href="{% url 'member_detail' member.id %}"  >Cancel</a>
+
 </body>
 </html>
