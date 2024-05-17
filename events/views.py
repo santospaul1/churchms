@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import EventForm, MeetingForm, ServiceForm
+from .forms import EventForm, ImageForm, MeetingForm, ServiceForm
 from .models import Event, Meeting, Service
 # Create your views here.
 def event_list(request):
@@ -9,13 +9,19 @@ def event_list(request):
 
 def add_event(request):
     if request.method == 'POST':
-        form = EventForm(request.POST)
-        if form.is_valid():
-            form.save()
+        event_form = EventForm(request.POST)
+        image_form = ImageForm(request.POST, request.FILES)  # Include request.FILES for file uploads
+        if event_form.is_valid() and image_form.is_valid():
+            event = event_form.save()
+            image = image_form.save(commit=False)
+            image.save()
+            event.images.add(image)
             return redirect('event_list')
     else:
-        form = EventForm()
-    return render(request, 'events/add_edit_event.html', {'form': form})
+        event_form = EventForm()
+        image_form = ImageForm() 
+     # Include request.FILES for file uploads
+    return render(request, 'events/add_edit_event.html', {'event_form': event_form, 'image_form': image_form})
 
 def edit_event(request, event_id):
     event = Event.objects.get(id=event_id)
@@ -54,12 +60,13 @@ def add_service(request):
     return render(request, 'events/add_edit_service.html', {'form': form})
 
 def meeting_list(request):
-    meetings = Meeting.objects.all()
-    return render(request, 'events/meeting_list.html', {'meetings': meetings})
+    if request.method == 'GET':
+        meetings = Meeting.objects.all()
+        return render(request, 'events/meeting_list.html', {'meetings': meetings})
 
 def add_meeting(request):
     if request.method == 'POST':
-        form = MeetingForm(request.POST)
+        form = MeetingForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('meeting_list')

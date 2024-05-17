@@ -10,7 +10,8 @@
     <h1>{% if form.instance.pk %}Edit Service{% else %}Add Service{% endif %}</h1>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ event_form.as_p }}
+        {{ image_form.as_p }}
         <button type="submit">Save</button>
     </form>
 </body>

@@ -1,6 +1,6 @@
 # In events/forms.py
 from django import forms
-from .models import Event, Meeting, Service
+from .models import Event, Meeting, Service, Image
 
 class EventForm(forms.ModelForm):
     class Meta:
@@ -18,4 +18,9 @@ class ServiceForm(forms.ModelForm):
 class MeetingForm(forms.ModelForm):
     class Meta:
         model = Meeting
-        fields = ['name', 'date', 'time', 'location', 'description']
+        fields = ['name', 'date', 'time', 'location', 'description', 'images']
+
+class ImageForm(forms.ModelForm):
+    class Meta:
+        model = Image
+        fields = ['image']

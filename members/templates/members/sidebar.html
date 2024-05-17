@@ -1,0 +1,14 @@
+<!-- sidebar.html -->
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+<div class="sidebar">
+    <ul>
+        
+        <a href="{% url 'event_list' %}">Events</a>
+        <a href="#">Location</a>
+        <a href="#">Donate</a>
+        <a href="{% url 'contact' %}">Contact</a>
+        <a href="{% url 'login' %}">Login</a>
+        <!-- Add more sidebar links as needed -->
+    </ul>
+</div>

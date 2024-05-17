@@ -10,8 +10,12 @@
     <h1>Meeting List</h1>
     <ul>
         {% for meeting in meetings %}
-            <li>{{ meeting.name }} - {{ meeting.date }} at {{ meeting.time }} - {{ meeting.location }}</li>
-        {% endfor %}
+            
+            <div class="col-md-4">
+                <li>{{ meeting.name }} - {{ meeting.date }} at {{ meeting.time }} - {{ meeting.location }}</li>
+                <img src="{{ meeting.images.url }}" class="img-responsive" style="width: 100%; float: left; margin-right: 10px;" />
+        </div>
+            {% endfor %}
     </ul>
     <a href="{% url 'add_meeting' %}">Add Meeting</a>
 </body>

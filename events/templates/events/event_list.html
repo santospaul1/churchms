@@ -1,10 +1,16 @@
-<!-- events/templates/events/event_list.html -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+    </script>
 </head>
 <body>
     <h1>Event List</h1>
@@ -12,6 +18,13 @@
         {% for event in events %}
             <li>
                 <a href="{% url 'event_detail' event.id %}">{{ event.name }}</a>
+                {% if event.images.all %}
+                    <!-- Display the first image associated with the event -->
+                    <img src="{{ event.images.url }}" alt="Event Image" style="max-width: 100px;">
+                {% else %}
+                    <!-- If no images available, display a placeholder or default image -->
+                    <img src="{% static 'images/church.jpeg' %}" alt="No Image" style="max-width: 100px;">
+                {% endif %}
             </li>
         {% endfor %}
     </ul>

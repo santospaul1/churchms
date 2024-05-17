@@ -1,5 +1,6 @@
 # In events/models.py
 from django.db import models
+from .image import Image
 
 class Event(models.Model):
     name = models.CharField(max_length=255)
@@ -7,6 +8,7 @@ class Event(models.Model):
     date = models.DateField()
     time = models.TimeField()
     location = models.CharField(max_length=255)
+    images = models.ManyToManyField(Image, blank=True)
 
     def __str__(self):
         return self.name
@@ -24,3 +26,4 @@ class Meeting(models.Model):
     time = models.TimeField()
     location = models.CharField(max_length=200)
     description = models.TextField()
+    images = models.ImageField(upload_to='images/', null=True)

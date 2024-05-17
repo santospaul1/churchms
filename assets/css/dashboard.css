@@ -1,0 +1,20 @@
+body{
+    background-image: url("../images/worship1.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    
+}
+.resized-image {
+    width: 30%; 
+    height: auto; 
+}
+h1{
+    color: aliceblue;
+}
+.main{
+    color: wheat;
+    background-color: rgba(0, 0, 0, 0.315);
+    height: auto;
+    width: 1024px;
+}

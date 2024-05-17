@@ -8,11 +8,23 @@
 </head>
 <body>
     <h1>Event Detail</h1>
+    
     <p><strong>Name:</strong> {{ event.name }}</p>
     <p><strong>Description:</strong> {{ event.description }}</p>
     <p><strong>Date:</strong> {{ event.date }}</p>
     <p><strong>Time:</strong> {{ event.time }}</p>
     <p><strong>Location:</strong> {{ event.location }}</p>
+    <h2>Images</h2>
+    {% if event.images.all %}
+        <div class="image-container">
+            {% for image in event.images.all %}
+                <img src="{{ event.images }}" alt="Event Image">
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No images available for this event.</p>
+    {% endif %}
+
     <a href="{% url 'edit_event' event.id %}">Edit</a>
     <a href="{% url 'delete_event' event.id %}">Delete</a>
 </body>
