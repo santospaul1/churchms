@@ -1,9 +1,8 @@
-body{
-    background-image: url("../images/worship1.jpeg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    
-    
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #282828;
 }
 .resized-image {
     width: 30%; 
@@ -13,8 +12,8 @@ h1{
     color: aliceblue;
 }
 .main{
-    color: wheat;
-    background-color: rgba(0, 0, 0, 0.315);
+    color: black;
+    background-color: rgba(0, 0, 0, 0.432);
     height: auto;
     width: 1024px;
 }

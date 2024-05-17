@@ -6,6 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import FormView
 from django.shortcuts import render, redirect
 from .forms import ContactForm
+from django.contrib.auth import authenticate, login
 # Create your views here.
 def dashboard(request):
     # Add any logic here to fetch data for the dashboard
@@ -39,3 +40,14 @@ class RegisterView(FormView):
     template_name = 'register.html'  # Path to your registration template
     form_class = UserCreationForm
     success_url = '/login/'
+
+    def form_valid(self, form):
+        # Save the user to the database
+        form.save()
+        # Optionally, log the user in after registration
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password1']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(self.request, user)
+        return super().form_valid(form)

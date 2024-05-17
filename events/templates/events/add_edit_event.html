@@ -1,42 +1,52 @@
-<!-- In your Django app's templates/events/add_edit_event.html -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% if event_form.instance.pk %}Edit Event{% else %}Add Event{% endif %}</title>
+    <link rel="stylesheet" href="{% static 'css/event.css' %}">
+    
 </head>
-<body>
-    <h1>{% if event_form.instance.pk %}Edit Event{% else %}Add Event{% endif %}</h1>
-    <form method="post" enctype="multipart/form-data"> <!-- Include enctype for file uploads -->
-        {% csrf_token %}
-        <fieldset>
-            <legend>Event Details</legend>
-            {{ event_form.as_p }}
-        </fieldset>
-        <fieldset>
-            <legend>Upload Image</legend>
-            {{ image_form.as_p }}
-        </fieldset>
-        <img id="image-preview" src="" alt="Image Preview" style="display: none;">
-        <button type="submit">Save</button>
-    </form>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-$(document).ready(function() {
-    // Update image preview when a file is selected
-    $('#id_image').on('change', function(e) {
-        var fileInput = e.target;
-        if (fileInput.files && fileInput.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                $('#image-preview').attr('src', e.target.result).show();
-            }
-            reader.readAsDataURL(fileInput.files[0]);
-        }
-    });
-});
-</script>
 
+<body>
+    <div class="container">
+        <h2>{% if event_form.instance.pk %}Edit Event{% else %}Add Event{% endif %}</h2>
+        <div class="form">
+            <form method="post" enctype="multipart/form-data"> <!-- Include enctype for file uploads -->
+                {% csrf_token %}
+                <fieldset>
+                    <legend>Event Details</legend>
+                    {{ event_form.as_p }}
+                </fieldset>
+                <fieldset>
+                    <legend>Upload Image</legend>
+                    {{ image_form.as_p }}
+                </fieldset>
+                <img id="image-preview" src="" alt="Image Preview">
+                <div class="inputBox">
+                    <input type="submit" value="Save">
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Update image preview when a file is selected
+            $('#id_image').on('change', function(e) {
+                var fileInput = e.target;
+                if (fileInput.files && fileInput.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#image-preview').attr('src', e.target.result).show();
+                    }
+                    reader.readAsDataURL(fileInput.files[0]);
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>

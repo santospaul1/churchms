@@ -1,0 +1,19 @@
+.sidebar{
+    background-color: rgba(0, 0, 0, 0.562);
+    height: 50px;
+    text-align: right;
+    
+    margin-left: 100px;
+    margin-right: 100px;
+    
+    
+}
+a{
+    color: white;
+    text-decoration: none;
+    font-size: 30px;
+    margin: 30px;
+    
+    
+
+}

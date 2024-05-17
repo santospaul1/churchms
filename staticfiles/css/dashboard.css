@@ -1,3 +1,19 @@
-body{
-    background-image: url("../assets/images/worship.jpeg");
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #282828;
+}
+.resized-image {
+    width: 30%; 
+    height: auto; 
+}
+h1{
+    color: aliceblue;
+}
+.main{
+    color: black;
+    background-color: rgba(0, 0, 0, 0.432);
+    height: auto;
+    width: 1024px;
 }

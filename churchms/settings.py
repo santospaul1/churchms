@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "members",
     "events",
+    'widget_tweaks',
     'volunteers',
     'donations',
     'communications',
