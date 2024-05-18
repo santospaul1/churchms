@@ -13,7 +13,12 @@ class EventForm(forms.ModelForm):
 class ServiceForm(forms.ModelForm):
     class Meta:
         model = Service
-        fields = ['name', 'date', 'time', 'location', 'description']
+        fields = ['name', 'date', 'start_time', 'end_time' ]
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+            'start_time': forms.TimeInput(attrs={'type': 'time'}),
+            'end_time': forms.TimeInput(attrs={'type': 'time'}),
+        }
 
 class MeetingForm(forms.ModelForm):
     class Meta:

@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
-
 from .forms import EventForm, ImageForm, MeetingForm, ServiceForm
 from .models import Event, Meeting, Service
+
 # Create your views here.
 def event_list(request):
     events = Event.objects.all()
@@ -20,7 +20,6 @@ def add_event(request):
     else:
         event_form = EventForm()
         image_form = ImageForm() 
-     # Include request.FILES for file uploads
     return render(request, 'events/add_edit_event.html', {'event_form': event_form, 'image_form': image_form})
 
 def edit_event(request, event_id):
@@ -59,6 +58,24 @@ def add_service(request):
         form = ServiceForm()
     return render(request, 'events/add_edit_service.html', {'form': form})
 
+def edit_service(request, service_id):
+    service = get_object_or_404(Service, id=service_id)
+    if request.method == 'POST':
+        form = ServiceForm(request.POST, instance=service)
+        if form.is_valid():
+            form.save()
+            return redirect('service_list')
+    else:
+        form = ServiceForm(instance=service)
+    return render(request, 'events/add_edit_service.html', {'form': form})
+
+def delete_service(request, service_id):
+    service = get_object_or_404(Service, id=service_id)
+    if request.method == 'POST':
+        service.delete()
+        return redirect('service_list')
+    return render(request, 'events/delete_service.html', {'service': service})
+
 def meeting_list(request):
     if request.method == 'GET':
         meetings = Meeting.objects.all()
@@ -73,3 +90,21 @@ def add_meeting(request):
     else:
         form = MeetingForm()
     return render(request, 'events/add_edit_meeting.html', {'form': form})
+
+def edit_meeting(request, meeting_id):
+    meeting = get_object_or_404(Meeting, id=meeting_id)
+    if request.method == 'POST':
+        form = MeetingForm(request.POST, instance=meeting)
+        if form.is_valid():
+            form.save()
+            return redirect('meeting_list')
+    else:
+        form = MeetingForm(instance=meeting)
+    return render(request, 'events/add_edit_meeting.html', {'form': form})
+
+def delete_meeting(request, meeting_id):
+    meeting = get_object_or_404(Meeting, id=meeting_id)
+    if request.method == 'POST':
+        meeting.delete()
+        return redirect('meeting_list')
+    return render(request, 'events/delete_meeting.html', {'meeting': meeting})

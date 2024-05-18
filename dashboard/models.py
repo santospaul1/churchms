@@ -10,3 +10,13 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.name
+
+class Location(models.Model):
+    name = models.CharField(max_length=100)
+    address = models.TextField(blank=True)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    zip_code = models.CharField(max_length=10, blank=True)
+
+    def __str__(self):
+        return self.name

@@ -1,11 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
+from dashboard.models import Location
 from members.models import Member
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import FormView
 from django.shortcuts import render, redirect
-from .forms import ContactForm
+from .forms import ContactForm, LocationForm
 from django.contrib.auth import authenticate, login
 # Create your views here.
 def dashboard(request):
@@ -51,3 +52,35 @@ class RegisterView(FormView):
         if user is not None:
             login(self.request, user)
         return super().form_valid(form)
+    
+def location_list(request):
+    locations = Location.objects.all()
+    return render(request, 'location_list.html', {'locations': locations})
+
+def add_location(request):
+    if request.method == 'POST':
+        form = LocationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('location_list')
+    else:
+        form = LocationForm()
+    return render(request, 'add_edit_location.html', {'form': form})
+
+def edit_location(request, location_id):
+    location = get_object_or_404(Location, id=location_id)
+    if request.method == 'POST':
+        form = LocationForm(request.POST, instance=location)
+        if form.is_valid():
+            form.save()
+            return redirect('location_list')
+    else:
+        form = LocationForm(instance=location)
+    return render(request, 'add_edit_location.html', {'form': form})
+
+def delete_location(request, location_id):
+    location = get_object_or_404(Location, id=location_id)
+    if request.method == 'POST':
+        location.delete()
+        return redirect('location_list')
+    return render(request, 'delete_location.html', {'location': location})
