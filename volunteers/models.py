@@ -10,6 +10,8 @@ class Volunteer(models.Model):
     skills = models.TextField(blank=True)
     interests = models.TextField(blank=True)
     availability = models.TextField(blank=True)
-
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+
+
