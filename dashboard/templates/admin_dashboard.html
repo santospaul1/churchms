@@ -1,0 +1,27 @@
+{% extends "admin-sidebar.html" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="main">
+        <div class="sales-report-area mt-5 mb-5">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="single-report mb-xs-30">
+                        <div class="s-report-inner pr--20 pt--30 mb-3">
+                            
+                            <div class="s-report-title d-flex justify-content-between">
+                                <h4 class="header-title mb-0">Members</h4>
+                            </div>
+                            <div class="d-flex justify-content-between pb-2">
+                                
+                                <h1> {{ member_count }} </h1>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>    
+        <!-- Add your dashboard content here -->
+</div>
+{% endblock %}

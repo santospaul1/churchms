@@ -1,14 +1,16 @@
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
-from dashboard.models import Location
+from dashboard.models import Contact, Location
+from django.contrib.auth.decorators import login_required
 from members.models import Member
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import FormView
 from django.shortcuts import render, redirect
 from .forms import ContactForm, LocationForm
-from django.contrib.auth import authenticate, login
-# Create your views here.
+from django.contrib.auth import authenticate, login, logout
+
+
 def dashboard(request):
     # Add any logic here to fetch data for the dashboard
     # For example, you can fetch recent events, statistics, etc.
@@ -18,12 +20,25 @@ def dashboard(request):
     }
     return render(request, 'dashboard.html', context)
 
+@login_required
+def admin_dashboard(request):
+    member_count = Member.objects.count()
+    context = {
+        'member_count':member_count
+    }
+    return render(request, 'admin_dashboard.html', context)
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return redirect('dashboard')
+
 class CustomLoginView(LoginView):
     template_name = 'login.html' 
 
     def get_success_url(self):
         # Customize the redirect URL after successful login
-        return reverse_lazy('dashboard') 
+        return reverse_lazy('admin_dashboard') 
 def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -33,6 +48,15 @@ def contact(request):
     else:
         form = ContactForm()
     return render(request, 'contact.html', {'form': form})
+
+def contact_list(request):
+    # Add any logic here to fetch data for the dashboard
+    # For example, you can fetch recent events, statistics, etc.
+    contacts = Contact.objects.all()
+    context = {
+        'contacts':contacts,
+    }
+    return render(request, 'contact_list.html', context)
 
 def contact_success(request):
     return render(request, 'contact_success.html')
