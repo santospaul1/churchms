@@ -36,16 +36,20 @@
             <a href="{% url 'admin_dashboard' %}"><span class="fa fa-home mr-3"></span> Home</a>
           </li>
           <li>
-            <a href="{% url 'service_list' %}"><span class="fa fa-user mr-3"></span> Service</a>
+            <a href="{% url 'member_list' %}"><span class="fa fa-user mr-3"></span> Members</a>
+          </li>
+          <li>
+            <a href="{% url 'service_list' %}"><span class="fa fa-sticky-note mr-3 "></span> Service</a>
           </li>
           <li>
             <a href="{% url 'event_list' %}"><span class="fa fa-briefcase mr-3"></span> Events</a>
           </li>
-          <li>
-            <a href="{% url 'member_list' %}"><span class="fa fa-sticky-note mr-3"></span> Members</a>
-          </li>
+        
           <li>
             <a href="{% url 'group_list' %}"><span class="fa fa-suitcase mr-3"></span> Groups</a>
+          </li>
+          <li>
+            <a href="{% url 'volunteer_list' %}"><span class="fa fa-user mr-3"></span> Volunteers</a>
           </li>
           <li>
             <a href="{% url 'location_list' %}"><span class="fa fa-cogs mr-3"></span> Location</a>
@@ -53,6 +57,7 @@
           <li>
             <a href="{% url 'contact_list' %}"><span class="fa fa-paper-plane mr-3"></span> Contacts</a>
           </li>
+         
         </ul>
         <div class="footer">
           <p>
