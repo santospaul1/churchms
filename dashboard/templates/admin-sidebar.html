@@ -18,10 +18,17 @@
         }
         .nav_bar{
           text-align: end;
+          padding-top: 2px;
+          
+
+        }
+        .resized-image{
+          width: 5%;
         }
   </style>
 </head>
 <body>
+  
   <div class="wrapper d-flex align-items-stretch">
     <nav id="sidebar">
       <div class="custom-menu">
@@ -32,7 +39,7 @@
       </div>
       <div class="p-4">
         <center>
-        <img src="{% static 'images/church.jpg' %}" alt="Edit" class="resized">
+        <img src="{% static 'images/church.jpg' %}" alt="logo" class="resized">
       </center>
           <ul class="list-unstyled components mb-5">
           <li class="active">
@@ -77,6 +84,8 @@
     <div id="content" class="p-4 p-md-5 pt-5">
       <div class="nav_bar">
       Welcome {{ user}}
+      <a href="{% url 'user_logout' %}"><img src="{% static 'images/logout1.jpeg' %}" alt="Edit" class="resized-image"></a>
+      
     </div>
       {% block content %}
       {% endblock %}
