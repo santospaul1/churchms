@@ -2,7 +2,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <title>Sidebar 05</title>
+  <title>Sidebar</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="{% static 'css/typography.css' %}">
@@ -15,6 +15,9 @@
     .resized {
             width: 40%; 
             height: auto; 
+        }
+        .nav_bar{
+          text-align: end;
         }
   </style>
 </head>
@@ -72,6 +75,9 @@
 
     <!-- Page Content  -->
     <div id="content" class="p-4 p-md-5 pt-5">
+      <div class="nav_bar">
+      Welcome {{ user}}
+    </div>
       {% block content %}
       {% endblock %}
     </div>
