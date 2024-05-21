@@ -12,6 +12,7 @@
     <p><strong>Email:</strong> {{ volunteer.email }}</p>
     <p><strong>Phone Number:</strong> {{ volunteer.phone_number }}</p>
     <p><strong>Address:</strong> {{ volunteer.address }}</p>
+    
     <!-- Add other fields as needed -->
     <a href="{% url 'edit_volunteer' volunteer.id %}">Edit</a>
     <a href="{% url 'delete_volunteer' volunteer.id %}">Delete</a>

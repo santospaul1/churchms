@@ -52,7 +52,8 @@ def contact(request):
 def contact_list(request):
     # Add any logic here to fetch data for the dashboard
     # For example, you can fetch recent events, statistics, etc.
-    contacts = Contact.objects.all()
+    contacts = Contact.objects.all().order_by('-id')
+
     context = {
         'contacts':contacts,
     }

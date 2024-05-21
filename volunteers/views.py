@@ -4,7 +4,8 @@ from .models import Volunteer
 from .forms import VolunteerForm
 
 def volunteer_list(request):
-    volunteers = Volunteer.objects.all()
+    volunteers = Volunteer.objects.all().order_by('-id')
+
     return render(request, 'volunteers/volunteer_list.html', {'volunteers': volunteers})
 
 def add_volunteer(request):

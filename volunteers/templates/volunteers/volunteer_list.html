@@ -9,15 +9,39 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1>Volunteer List</h1>
-        <ul class="list-group">
-            {% for volunteer in volunteers %}
-            <li class="list-group-item">
-                <a href="{% url 'volunteer_detail' volunteer.id %}">{{ volunteer.first_name }} {{ volunteer.last_name }}</a>
-            </li>
-            {% endfor %}
-        </ul>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>S.N</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Interest</th>
+                    <th>Skills</th>
+                    <th>Availability</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for volunteer in volunteers %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ volunteer.first_name }} </td>
+                    <td>{{ volunteer.last_name }}</td>
+                    <td>{{ volunteer.interests }}</td>
+                    <td>{{ volunteer.skills }}</td>
+                    <td>{{ volunteer.availability }}</td>
+                    <td><a href="{% url 'volunteer_detail' volunteer.id %}">View More </a></td>
+                    
+                    
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    
         <div class="add-volunteer">
             <a href="{% url 'add_volunteer' %}" class="btn btn-primary">Add Volunteer</a>
         </div>

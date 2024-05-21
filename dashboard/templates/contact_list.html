@@ -9,6 +9,39 @@
     {% extends "admin-sidebar.html" %}
 
 {% block content %}
+<div class="table-responsive">
+    <table class="table table-hover table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>S.N</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+                <th>Phone</th>
+                <th>Day Sent</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for contact in contacts %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ contact.name }} </td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.message }}</td>
+                <td>{{ contact.phone }}</td>
+                <td>{{ contact.created_at }}</td>
+                
+                
+                
+                
+                
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
 </body>
 </html>

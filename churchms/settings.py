@@ -40,13 +40,14 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "members",
     "events",
-    
     'volunteers',
     'donations',
     'communications',
     'management',
     'groups',
     'dashboard',
+    'multiselectfield',
+    
 ]
 
 MIDDLEWARE = [

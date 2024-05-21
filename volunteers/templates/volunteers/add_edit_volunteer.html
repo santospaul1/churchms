@@ -49,26 +49,7 @@
         <h1>{% if form.instance.pk %}Edit Volunteer{% else %}Add Volunteer{% endif %}</h1>
         <form method="post" class="needs-validation" novalidate>
             {% csrf_token %}
-            <div class="form-group">
-                {{ form.first_name.label_tag }}
-                {{ form.first_name }}
-            </div>
-            <div class="form-group">
-                {{ form.last_name.label_tag }}
-                {{ form.last_name }}
-            </div>
-            <div class="form-group">
-                {{ form.email.label_tag }}
-                {{ form.email }}
-            </div>
-            <div class="form-group">
-                {{ form.phone_number.label_tag }}
-                {{ form.phone_number }}
-            </div>
-            <div class="form-group">
-                {{ form.address.label_tag }}
-                {{ form.address }}
-            </div>
+            {{ form.as_p }}
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">{% if form.instance.pk %}Update{% else %}Add{% endif %}</button>
             </div>

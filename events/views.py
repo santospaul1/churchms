@@ -4,7 +4,8 @@ from .models import Event, Meeting, Service
 
 # Create your views here.
 def event_list(request):
-    events = Event.objects.all()
+    events = Event.objects.all().order_by('-id')
+
     return render(request, 'events/event_list.html', {'events': events})
 
 def add_event(request):
@@ -45,7 +46,8 @@ def delete_event(request, event_id):
     return render(request, 'events/delete_event.html', {'event': event})
 
 def service_list(request):
-    services = Service.objects.all()
+    services = Service.objects.all().order_by('-id')
+
     return render(request, 'events/service_list.html', {'services': services})
 
 def add_service(request):
@@ -78,7 +80,8 @@ def delete_service(request, service_id):
 
 def meeting_list(request):
     if request.method == 'GET':
-        meetings = Meeting.objects.all()
+        meetings = Meeting.objects.all().order_by('-id')
+
         return render(request, 'events/meeting_list.html', {'meetings': meetings})
 
 def add_meeting(request):

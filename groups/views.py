@@ -4,7 +4,8 @@ from .models import SmallGroup, GroupMember, Meeting
 from .forms import SmallGroupForm, MeetingForm
 
 def group_list(request):
-    groups = SmallGroup.objects.all()
+    groups = SmallGroup.objects.all().order_by('-id')
+
     return render(request, 'groups/group_list.html', {'groups': groups})
 
 def add_group(request):
