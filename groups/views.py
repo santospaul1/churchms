@@ -1,7 +1,27 @@
 # In your Django app's views.py
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from .models import SmallGroup, GroupMember, Meeting
-from .forms import SmallGroupForm, MeetingForm
+from .forms import GroupMemberForm, SmallGroupForm, MeetingForm
+from django.contrib.auth.models import User
+
+def add_group_member(request, group_id):
+    group = get_object_or_404(SmallGroup, id=group_id)
+    if request.method == 'POST':
+        form = GroupMemberForm(request.POST)
+        if form.is_valid():
+            group_member = form.save(commit=False)
+            group_member.group = group
+            group_member.save()
+            return redirect('group_detail', group_id=group.id)
+    else:
+        form = GroupMemberForm()
+    return render(request, 'groups/add_group_member.html', {'form': form, 'group': group})
+
+def remove_group_member(request, group_id, member_id):
+    group = get_object_or_404(SmallGroup, id=group_id)
+    member = get_object_or_404(User, id=member_id)
+    GroupMember.objects.filter(group=group, member=member).delete()
+    return redirect('group_detail', group_id=group.id)
 
 def group_list(request):
     groups = SmallGroup.objects.all().order_by('-id')

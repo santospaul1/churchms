@@ -3,10 +3,14 @@ from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from dashboard.models import Contact, Location
 from django.contrib.auth.decorators import login_required
+from events.models import Event, Service
+from groups.models import SmallGroup
 from members.models import Member
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import FormView
 from django.shortcuts import render, redirect
+
+from volunteers.models import Volunteer
 from .forms import ContactForm, LocationForm
 from django.contrib.auth import authenticate, login, logout
 
@@ -23,8 +27,22 @@ def dashboard(request):
 @login_required
 def admin_dashboard(request):
     member_count = Member.objects.count()
+    volunteers_count = Volunteer.objects.count()
+    groups_count = SmallGroup.objects.count()
+    services_count = Service.objects.count()
+    events_count = Event.objects.count()
+    location_count = Location.objects.count()
     context = {
-        'member_count':member_count
+        'member_count':member_count,
+        'volunteers_count':volunteers_count,
+        'groups_count':groups_count,
+        'services_count':services_count,
+        'events_count':events_count,
+        'location_count':location_count,
+        
+
+
+
     }
     return render(request, 'admin_dashboard.html', context)
 

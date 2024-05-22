@@ -84,7 +84,7 @@
     <div id="content" class="p-4 p-md-5 pt-5">
       <div class="nav_bar">
       Welcome {{ user}}
-      <a href="{% url 'user_logout' %}"><img src="{% static 'images/logout1.jpeg' %}" alt="Edit" class="resized-image"></a>
+      <a href="{% url 'user_logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
       
     </div>
       {% block content %}
