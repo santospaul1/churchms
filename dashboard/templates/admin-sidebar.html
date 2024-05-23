@@ -13,22 +13,19 @@
 
   <style>
     .resized {
-            width: 40%; 
-            height: auto; 
-        }
-        .nav_bar{
-          text-align: end;
-          padding-top: 2px;
-          
-
-        }
-        .resized-image{
-          width: 5%;
-        }
+      width: 40%; 
+      height: auto; 
+    }
+    .nav_bar{
+      text-align: end;
+      padding-top: 2px;
+    }
+    .resized-image{
+      width: 5%;
+    }
   </style>
 </head>
 <body>
-  
   <div class="wrapper d-flex align-items-stretch">
     <nav id="sidebar">
       <div class="custom-menu">
@@ -39,42 +36,40 @@
       </div>
       <div class="p-4">
         <center>
-        <img src="{% static 'images/church.jpg' %}" alt="logo" class="resized">
-      </center>
-          <ul class="list-unstyled components mb-5">
-          <li class="active">
+          <img src="{% static 'images/church.jpg' %}" alt="logo" class="resized">
+        </center>
+        <ul class="list-unstyled components mb-5">
+          <li class="{% if request.resolver_match.url_name == 'admin_dashboard' %}active{% endif %}">
             <a href="{% url 'admin_dashboard' %}"><span class="fa fa-home mr-3"></span> Home</a>
           </li>
-          <li>
-            <a href="{% url 'member_list' %}"><span class="fa fa-user mr-3"></span> Members</a>
+          <li class="{% if request.resolver_match.url_name == 'member_list' %}active{% endif %}">
+            <a href="{% url 'member_list' %}"><span class="fa fa-user-circle-o mr-3"></span> Members</a>
           </li>
-          <li>
-            <a href="{% url 'service_list' %}"><span class="fa fa-sticky-note mr-3 "></span> Service</a>
+          <li class="{% if request.resolver_match.url_name == 'service_list' %}active{% endif %}">
+            <a href="{% url 'service_list' %}"><span class="fa fa-sticky-note mr-3"></span> Service</a>
           </li>
-          <li>
+          <li class="{% if request.resolver_match.url_name == 'event_list' %}active{% endif %}">
             <a href="{% url 'event_list' %}"><span class="fa fa-briefcase mr-3"></span> Events</a>
           </li>
-        
-          <li>
+          <li class="{% if request.resolver_match.url_name == 'meeting_list' %}active{% endif %}">
+            <a href="{% url 'meeting_list' %}"><span class="fa fa-meetup mr-3"></span> Meetings</a>
+          </li>
+          <li class="{% if request.resolver_match.url_name == 'group_list' %}active{% endif %}">
             <a href="{% url 'group_list' %}"><span class="fa fa-suitcase mr-3"></span> Groups</a>
           </li>
-          <li>
+          <li class="{% if request.resolver_match.url_name == 'volunteer_list' %}active{% endif %}">
             <a href="{% url 'volunteer_list' %}"><span class="fa fa-user mr-3"></span> Volunteers</a>
           </li>
-          <li>
-            <a href="{% url 'location_list' %}"><span class="fa fa-cogs mr-3"></span> Location</a>
+          <li class="{% if request.resolver_match.url_name == 'location_list' %}active{% endif %}">
+            <a href="{% url 'location_list' %}"><span class="fa fa-map-marker mr-3"></span> Location</a>
           </li>
-          <li>
+          <li class="{% if request.resolver_match.url_name == 'contact_list' %}active{% endif %}">
             <a href="{% url 'contact_list' %}"><span class="fa fa-paper-plane mr-3"></span> Contacts</a>
           </li>
-         
         </ul>
         <div class="footer">
           <p>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="icon-heart" aria-hidden="true"></i> 
-            
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="icon-heart" aria-hidden="true"></i>
           </p>
         </div>
       </div>
@@ -83,10 +78,9 @@
     <!-- Page Content  -->
     <div id="content" class="p-4 p-md-5 pt-5">
       <div class="nav_bar">
-      Welcome {{ user}} &emsp;
-      <a href="{% url 'user_logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
-      
-    </div>
+        Welcome {{ user }} &emsp;
+        <a href="{% url 'user_logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+      </div>
       {% block content %}
       {% endblock %}
     </div>

@@ -12,22 +12,33 @@
     </script>
 </head>
 <body>
-    <h1>Event List</h1>
-    <ul>
+   <center> <a href="{% url 'add_event' %}" class="btn btn-primary mb-4">Add Event</a> </center>
+    <center><h1>Event List</h1></center>
+
+    
         {% for event in events %}
-            <li>
-                <a href="{% url 'event_detail' event.id %}">{{ event.name }}</a>
-                {% if event.images.all %}
-                    <!-- Display the first image associated with the event -->
-                    <img src="{{ event.images.url }}" alt="Event Image" style="max-width: 100px;">
-                {% else %}
-                    <!-- If no images available, display a placeholder or default image -->
-                    <img src="{% static 'images/church.jpeg' %}" alt="No Image" style="max-width: 100px;">
-                {% endif %}
-            </li>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                
+                <img class="card-img-top" src="{{ event.images.url }}" alt="meeting image">
+                
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ event.name }}</h5>
+                    <p class="card-text">{{ event.description }}</p>
+                    <p><strong>Date:</strong> {{ event.date }}</p>
+                    <p><strong>Time:</strong> {{ event.time }}</p>
+                    <a href="{% url 'edit_event' event.id %}" class="btn btn-primary mt-auto">Edit</a>
+                    <a href="{% url 'delete_event' event.id %}" class="btn btn-danger mt-2">Delete</a>
+                </div>
+            </div>
+        </div>
+            
+               
+            
         {% endfor %}
     </ul>
-    <a href="{% url 'add_event' %}" class="btn btn-sm btn-danger">Add Event</a>
+    
 </body>
 </html>
 {% endblock %}
