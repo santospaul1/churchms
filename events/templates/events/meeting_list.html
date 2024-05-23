@@ -1,22 +1,30 @@
-<!-- In your Django app's templates/events/meeting_list.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meeting List</title>
-</head>
-<body>
-    <h1>Meeting List</h1>
-    <ul>
+{% extends "admin-sidebar.html" %}
+{% load static %}
+{% block content %}
+
+<a href="{% url 'add_meeting' %}" class="btn btn-primary mb-4">Add Meeting</a>
+
+<div class="container">
+    <h1 class="mb-4">Meeting List</h1>
+    <div class="row">
         {% for meeting in meetings %}
-            
-            <div class="col-md-4">
-                <li>{{ meeting.name }} - {{ meeting.date }} at {{ meeting.time }} - {{ meeting.location }}</li>
-                <img src="{{ meeting.images.url }}" class="img-responsive" style="width: 100%; float: left; margin-right: 10px;" />
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                
+                <img class="card-img-top" src="{{ meeting.images.url }}" alt="meeting image">
+                
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ meeting.name }}</h5>
+                    <p class="card-text">{{ meeting.description }}</p>
+                    <p><strong>Date:</strong> {{ meeting.date }}</p>
+                    <p><strong>Time:</strong> {{ meeting.time }}</p>
+                    <a href="{% url 'edit_meeting' meeting.id %}" class="btn btn-primary mt-auto">Edit</a>
+                    <a href="{% url 'delete_meeting' meeting.id %}" class="btn btn-danger mt-2">Delete</a>
+                </div>
+            </div>
         </div>
-            {% endfor %}
-    </ul>
-    <a href="{% url 'add_meeting' %}">Add Meeting</a>
-</body>
-</html>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

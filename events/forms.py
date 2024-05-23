@@ -5,7 +5,7 @@ from .models import Event, Meeting, Service, Image
 class EventForm(forms.ModelForm):
     class Meta:
         model = Event
-        fields = ['name', 'description', 'date', 'time', 'location']
+        fields = ['name', 'description', 'date', 'time', 'location', 'images']
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
             'time': forms.TimeInput(attrs={'type': 'time'}),
@@ -24,6 +24,10 @@ class MeetingForm(forms.ModelForm):
     class Meta:
         model = Meeting
         fields = ['name', 'date', 'time', 'location', 'description', 'images']
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+            'time': forms.TimeInput(attrs={'type': 'time'}),
+        }
 
 class ImageForm(forms.ModelForm):
     class Meta:

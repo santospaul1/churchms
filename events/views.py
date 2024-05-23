@@ -79,6 +79,7 @@ def meeting_list(request):
 
         return render(request, 'events/meeting_list.html', {'meetings': meetings})
 
+
 def add_meeting(request):
     if request.method == 'POST':
         form = MeetingForm(request.POST, request.FILES)

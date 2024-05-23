@@ -18,11 +18,10 @@
                 {% csrf_token %}
                 <fieldset>
                     <legend>Event Details</legend>
-                    {{ event_form.as_p }}
+                    {{ form.as_p }}
                 </fieldset>
                 <fieldset>
-                    <legend>Upload Image</legend>
-                    {{ image_form.as_p }}
+                   
                 </fieldset>
                 <img id="image-preview" src="" alt="Image Preview">
                 <div class="inputBox">
