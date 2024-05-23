@@ -8,7 +8,7 @@ class Event(models.Model):
     date = models.DateField()
     time = models.TimeField()
     location = models.CharField(max_length=255)
-    images = models.ManyToManyField(Image, blank=True)
+    images = models.ImageField(upload_to='images/', null=True)
 
     def __str__(self):
         return self.name

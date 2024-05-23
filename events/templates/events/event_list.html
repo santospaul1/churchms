@@ -17,13 +17,11 @@
         {% for event in events %}
             <li>
                 <a href="{% url 'event_detail' event.id %}">{{ event.name }}</a>
-                {% if event.images.all %}
+                
+                
                     <!-- Display the first image associated with the event -->
                     <img src="{{ event.images.url }}" alt="Event Image" style="max-width: 100px;">
-                {% else %}
-                    <!-- If no images available, display a placeholder or default image -->
-                    <img src="{% static 'images/church.jpeg' %}" alt="No Image" style="max-width: 100px;">
-                {% endif %}
+                   
             </li>
         {% endfor %}
     </ul>

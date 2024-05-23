@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
-    background: #282828;
+    background-color: #282828;
 }
 .resized-image {
     width: 30%; 

@@ -10,18 +10,13 @@ def event_list(request):
 
 def add_event(request):
     if request.method == 'POST':
-        event_form = EventForm(request.POST)
-        image_form = ImageForm(request.POST, request.FILES)  # Include request.FILES for file uploads
-        if event_form.is_valid() and image_form.is_valid():
-            event = event_form.save()
-            image = image_form.save(commit=False)
-            image.save()
-            event.images.add(image)
+        form = EventForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
             return redirect('event_list')
     else:
-        event_form = EventForm()
-        image_form = ImageForm() 
-    return render(request, 'events/add_edit_event.html', {'event_form': event_form, 'image_form': image_form})
+        form = EventForm() 
+    return render(request, 'events/add_edit_event.html', {'form': form})
 
 def edit_event(request, event_id):
     event = Event.objects.get(id=event_id)

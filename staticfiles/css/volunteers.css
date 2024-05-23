@@ -1,9 +1,9 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Poppins', sans-serif;
+}
 
 .container {
-    background: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding: 30px;
     margin-top: 50px;
 }
 
@@ -12,17 +12,12 @@ h1 {
     font-weight: 700;
     margin-bottom: 20px;
     color: #333;
+    text-align: center;
 }
 
-.form-label {
+.list-group-item {
+    font-size: 1.2rem;
     font-weight: 500;
-    color: #555;
-}
-
-.form-control {
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 1rem;
 }
 
 .btn-primary {
@@ -36,4 +31,9 @@ h1 {
 
 .btn-primary:hover {
     background-color: #0056b3;
+}
+
+.add-volunteer {
+    text-align: center;
+    margin-top: 20px;
 }
