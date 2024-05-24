@@ -18,9 +18,11 @@ from django.contrib.auth import authenticate, login, logout
 def dashboard(request):
     # Add any logic here to fetch data for the dashboard
     # For example, you can fetch recent events, statistics, etc.
-    member_count = Member.objects.count()
+    services = Service.objects.all()
+    events = Event.objects.all()
+    location = Location.objects.all()
     context = {
-        'member_count':member_count
+        'services':services
     }
     return render(request, 'dashboard.html', context)
 

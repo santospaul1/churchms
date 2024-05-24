@@ -1,36 +1,151 @@
+<!-- Main Navigation -->
 {% load static %}
-<!-- dashboard.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Dashboard</title>
-</head>
-<body>
-    {% include 'members/sidebar.html' %}
-    <div class="main">
-    <div class="sales-report-area mt-5 mb-5">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="single-report mb-xs-30">
-                    <div class="s-report-inner pr--20 pt--30 mb-3">
-                        <div class="icon"><i class="fa fa-briefcase"></i></div>
-                        <div class="s-report-title d-flex justify-content-between">
-                            <h4 class="header-title mb-0">Members</h4>
-                        </div>
-                        <div class="d-flex justify-content-between pb-2">
-                            <img src="{% static 'images/member.png' %}" alt="Edit" class="resized-image">
-                            <h1> {{ member_count }} </h1>
-                            
-                        </div>
-                    </div>
-                </div>
+<link rel="stylesheet" href="{% static 'css/landing.css' %}">
+
+<nav class="main-nav" id="main-nav">
+    <div class="content-wrapper-sm">
+     <a href="#" class="navbar-brand">CityScapes</a>
+     <div id="menu-button">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
+     </div>
+     <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#events">Events</a></li>
+      <li><a href="#location">Location</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="{% url 'login' %}" target="_blank">Login </a></li>
+     </ul>
+    </div>
+   </nav>
+   
+   <!-- Main header -->
+   <header>
+    <!-- First replaceble image -->
+    <img class="img-absolute" src="https://raw.githubusercontent.com/Jesus-E-Rodriguez/cityscapes-landing-page/88c9b44e3def10ae253dd8d44b717cfa78cca42d/img/city.png" alt="City 1">
+    <div class="wrapper astonish animated fadeInDown">
+     <h1><strong>Jesus Power</strong> Evangelism church</h1>
+     
+    </div>
+   </header>
+   
+   <!-- Main content -->
+   <main>
+    <div class="content-wrapper" id="about">
+     <!-- second replaceble image -->
+     <img class="img-absolute" src="https://raw.githubusercontent.com/Jesus-E-Rodriguez/cityscapes-landing-page/master/img/city2.png" alt="City 2">
+     <div class="grid">
+      <div class="grid-col-sm-12 grid-col-md-6 astonish" data-animation="fadeInLeft">
+       <h2 class="section-title">About the church</h2>
+       <p>The church was founded in the year 2018 by Joseph Mzungu and serves as the headquarters</p>
+       <p>Our services run simultaneously across all Branches and headquarters
+
+        Service time are indicated in the service</p>
+    </div>
+    </div>
+   
+    <div id="services" >
+     <h2 class="section-title">Our Services</h2>
+    
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead class="table-dark">
+            <tr>
+                <th>Service</th>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                
+                
+            </tr>
+            </thead>
+            <tbody>
+            {% for service in services %}
+                <tr>
+                    <td>{{ service.name }}</td>
+                    <td>{{ service.date }}</td>
+                    <td>{{ service.start_time }}</td>
+                    <td>{{ service.end_time }}</td>
+                    
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+      
+     
+   
+    <div class="content-wrapper" id="contact">
+     <!-- Third replaceble image -->
+     <img class="img-absolute" src="https://raw.githubusercontent.com/Jesus-E-Rodriguez/cityscapes-landing-page/master/img/city3.png" alt="City 3">
+   
+     <!-- Custom form, important note: you will need additional code in order to make this form work -->
+     <form class="contact-form astonish" method="post" data-animation="fadeInRight">
+        {% csrf_token %}
+        <h2 class="section-title">Contact Us</h2>
+        <div class="grid">
+          <div class="grid-col-sm-12 grid-col-md-6">
+            <div class="form-group">
+              {{ form.name }}
+              <label for="id_name">Name <span class="text-danger">*</span></label>
             </div>
+          </div>
+          <div class="grid-col-sm-12 grid-col-md-6">
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-text">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+                  </svg>
+                </span>
+                {{ form.email }}
+                <label for="id_email">Email <span class="text-danger">*</span></label>
+              </div>
+            </div>
+          </div>
+          <div class="grid-col-sm-12 col-md-6">
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-text">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                    <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+                  </svg>
+                </span>
+                {{ form.phone }}
+                <label for="id_phone">Phone Number</label>
+              </div>
+            </div>
+          </div>
+          <div class="grid-col-sm-12">
+            <div class="form-group">
+              {{ form.message }}
+              <label for="id_message">Message <span class="text-danger">*</span></label>
+            </div>
+          </div>
         </div>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>    
-    <!-- Add your dashboard content here -->
-</body>
-</html>
+        <input class="btn btn-outline-teal" type="submit" value="Send">
+      </form>
+    </div>
+   
+    
+   </main>
+   
+   <!-- Main footer -->
+   <footer>
+    <div class="content-wrapper-sm display-flex-between">
+     <!-- Easily replaceble copyright information -->
+     <small>Your copyright 2017.</small>
+   
+     <!-- Make sure to edit the links so that they go to your social media. -->
+     <div class="social-links">
+      <ul>
+       <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+       <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+       <li><a href="#"><i class="fa fa-snapchat-square" aria-hidden="true"></i></a></li>
+       <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+      </ul>
+     </div>
+    </div>
+   </footer>
