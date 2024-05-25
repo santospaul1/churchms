@@ -31,6 +31,28 @@
   }
 }
 
+/* Navbar styles */
+.navbar-nav .nav-link {
+  color: white !important;
+}
+
+.navbar-brand img.resized {
+  max-height: 50px;
+}
+
+.header {
+  padding-top: 60px; /* Adjust if needed for fixed navbar */
+}
+
+/* Optional: Customize navbar toggle button */
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler-icon {
+  background-image: url('data:image/svg+xml;charset=utf8,%3Csvg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath stroke="rgba%28255, 255, 255, 0.5%29" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"/%3E%3C/svg%3E');
+}
+
 
 .container-sm {
   max-width: 640px;
@@ -39,6 +61,8 @@
 .container-md {
   max-width: 960px;
 }
+
+
 
 /* A flex grid to be used as a backup in case display grid
    is not supported in the browser. */
@@ -863,23 +887,29 @@ header h2 {
 footer {
   padding: 2rem;
 }
+footer .social-links {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
 
-footer .social-links ul {
-  padding: 0;
-  margin: 0;
+.social-links ul {
   list-style: none;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  padding: 0;
   display: flex;
 }
 
-footer .social-links ul li {
-  margin: 1rem;
-  text-align: center;
+.social-links ul li {
+  margin: 0 10px;
 }
 
-footer .social-links ul li a {
-  font-size: 1.5rem;
-  color: #fefffe;
-  display: block;
+.social-links ul li a {
+  color: #fff; /* Adjust as necessary */
+  font-size: 24px;
+  transition: color 0.3s;
 }
+
+.social-links ul li a:hover {
+  color: #007bff; /* Adjust hover color as necessary */
+}
+
