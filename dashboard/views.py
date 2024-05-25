@@ -3,7 +3,7 @@ from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from dashboard.models import Contact, Location
 from django.contrib.auth.decorators import login_required
-from events.models import Event, Service
+from events.models import Event, Meeting, Service
 from groups.models import SmallGroup
 from members.models import Member
 from django.contrib.auth.forms import UserCreationForm
@@ -16,13 +16,26 @@ from django.contrib.auth import authenticate, login, logout
 
 
 def dashboard(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('contact_success')  # Redirect to a success page
+    else:
+        form = ContactForm()
+    
     # Add any logic here to fetch data for the dashboard
     # For example, you can fetch recent events, statistics, etc.
     services = Service.objects.all()
     events = Event.objects.all()
-    location = Location.objects.all()
+    locations = Location.objects.all()
+    meetings = Meeting.objects.all()
     context = {
-        'services':services
+        'services':services,
+        'events':events,
+        'locations':locations,
+        'meetings':meetings,
+        'form':form
     }
     return render(request, 'dashboard.html', context)
 
