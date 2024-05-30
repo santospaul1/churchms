@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 def event_list(request):
     events = Event.objects.all().order_by('-id')
-
+    
     return render(request, 'events/event_list.html', {'events': events})
 
 @login_required

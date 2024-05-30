@@ -9,7 +9,7 @@ from members.models import Member
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic.edit import FormView
 from django.shortcuts import render, redirect
-
+from django.utils import timezone
 from volunteers.models import Volunteer
 from .forms import ContactForm, LocationForm
 from django.contrib.auth import authenticate, login, logout
@@ -23,13 +23,13 @@ def dashboard(request):
             return redirect('contact_success')  # Redirect to a success page
     else:
         form = ContactForm()
-    
+    current_date = timezone.now().date()
     # Add any logic here to fetch data for the dashboard
     # For example, you can fetch recent events, statistics, etc.
     services = Service.objects.all()
-    events = Event.objects.all()
+    events = Event.objects.filter(date__gte=current_date).order_by('date')
     locations = Location.objects.all()
-    meetings = Meeting.objects.all()
+    meetings = Meeting.objects.filter(date__gte=current_date).order_by('date')
     context = {
         'services':services,
         'events':events,

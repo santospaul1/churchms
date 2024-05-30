@@ -5,6 +5,7 @@
   <title>Sidebar</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -15,16 +16,33 @@
       width: 40%; 
       height: auto; 
     }
-    .nav_bar{
+    .nav_bar {
       text-align: end;
       padding-top: 2px;
     }
-    .resized-image{
+    .resized-image {
       width: 5%;
+    }
+    .spinner-grow {
+      width: 3rem;
+      height: 3rem;
+    }
+    #loadingSpinner {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      display: none;
     }
   </style>
 </head>
 <body>
+  <div id="loadingSpinner">
+    <div class="spinner-grow" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
   <div class="wrapper d-flex align-items-stretch">
     <nav id="sidebar">
       <div class="custom-menu">
@@ -80,6 +98,7 @@
         Welcome {{ user }} &emsp;
         <a href="{% url 'user_logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
       </div>
+      
       {% block content %}
       {% endblock %}
     </div>
@@ -89,5 +108,14 @@
   <script src="{% static 'js/popper.js' %}"></script>
   <script src="{% static 'js/bootstrap.min.js' %}"></script>
   <script src="{% static 'js/main.js' %}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('loadingSpinner').style.display = 'block';
+    });
+
+    window.addEventListener('load', function() {
+      document.getElementById('loadingSpinner').style.display = 'none';
+    });
+  </script>
 </body>
 </html>
