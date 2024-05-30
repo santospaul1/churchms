@@ -1,7 +1,7 @@
 {% extends "admin-sidebar.html" %}
 {% load static %}
 {% block content %}
-
+<center><a href="{% url 'add_group'  %}" class="btn btn-primary">Add Group</a></center>
 
     <h1>Group List</h1>
     <div class="container-fluid">
@@ -30,6 +30,6 @@
         </div>
         
 
-    <a href="{% url 'add_group' %}">Add Group</a>
+    
 </div>
 {% endblock %}

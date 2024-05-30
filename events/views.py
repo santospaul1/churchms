@@ -80,6 +80,10 @@ def delete_service(request, service_id):
         return redirect('service_list')
     return render(request, 'events/delete_service.html', {'service': service})
 
+def service_detail(request, service_id):
+    service = get_object_or_404(Service, id=service_id)
+    return render(request, 'events/event_detail.html', {'service': service})
+
 @login_required
 def meeting_list(request):
     if request.method == 'GET':

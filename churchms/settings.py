@@ -43,8 +43,6 @@ INSTALLED_APPS = [
     "events",
     'volunteers',
     'donations',
-    'communications',
-    'management',
     'groups',
     'dashboard',
     'multiselectfield',
