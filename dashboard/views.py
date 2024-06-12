@@ -62,6 +62,27 @@ def admin_dashboard(request):
     return render(request, 'admin_dashboard.html', context)
 
 @login_required
+def member_dashboard(request):
+
+    current_date = timezone.now().date()
+    # Add any logic here to fetch data for the dashboard
+    # For example, you can fetch recent events, statistics, etc.
+    services = Service.objects.all()
+    upcoming_events = Event.objects.filter(date__gte=current_date).order_by('date')
+    locations = Location.objects.all()
+    upcoming_meetings = Meeting.objects.filter(date__gte=current_date).order_by('date')
+    events = Event.objects.all()
+    context = {
+        'services':services,
+        'events':events,
+        'locations':locations,
+        'upcoming_events': upcoming_events,
+        'upcoming_meetings':upcoming_meetings
+        
+    }
+    return render(request, 'member_dashboard.html', context)
+
+@login_required
 def user_logout(request):
     logout(request)
     return redirect('dashboard')

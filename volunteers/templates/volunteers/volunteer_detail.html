@@ -10,10 +10,10 @@
 </head>
 <body>
     <h1>Volunteer Detail</h1>
-    <p><strong>Name:</strong> {{ volunteer.first_name }} {{ volunteer.last_name }}</p>
-    <p><strong>Email:</strong> {{ volunteer.email }}</p>
-    <p><strong>Phone Number:</strong> {{ volunteer.phone_number }}</p>
-    <p><strong>Address:</strong> {{ volunteer.address }}</p>
+    <p><strong>Name:</strong> {{ volunteer.first_name }} {{ volunteer.Volunteer.first_name }} {{ volunteer.last_name }} {{ volunteer.Volunteer.last_name }}</p>
+    <p><strong>Email:</strong> {{ volunteer.email }} {{ volunteer.Volunteer.email }}</p>
+    <p><strong>Phone Number:</strong> {{ volunteer.phone_number }}  {{ volunteer.Volunteer.phone_number }}</p>
+    <p><strong>Address:</strong> {{ volunteer.address }} {{ volunteer.Volunteer.address }}</p>
     
     <!-- Add other fields as needed -->
     <a href="{% url 'edit_volunteer' volunteer.id %}" class="btn btn-secondary">Edit</a>

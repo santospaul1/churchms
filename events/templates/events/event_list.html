@@ -2,43 +2,29 @@
 {% load static %}
 {% block content %}
 
-
-    
-    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
-    </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
-    </script>
-</head>
-<body>
    <center> <a href="{% url 'add_event' %}" class="btn btn-primary mb-4">Add Event</a> </center>
     <center><h1>Event List</h1></center>
 
-    
-        {% for event in events %}
-
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                
-                <img class="card-img-top" src="{{ event.images.url }}" alt="meeting image">
-                
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">{{ event.name }}</h5>
-                    <p class="card-text">{{ event.description }}</p>
-                    <p><strong>Date:</strong> {{ event.date }}</p>
-                    <p><strong>Time:</strong> {{ event.time }}</p>
-                    <a href="{% url 'edit_event' event.id %}" class="btn btn-primary mt-auto">Edit</a>
-                    <a href="{% url 'delete_event' event.id %}" class="btn btn-danger mt-2">Delete</a>
+    <center><h2 class="section-title">Upcoming Events</h2></center>
+                <div class="row">
+                    {% for event in events %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <img class="card-img-top" src="{{ event.images.url }}" alt="event image">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title text-dark">{{ event.name }}</h5>
+                                <p class="card-text text-dark">{{ event.description }}</p>
+                                <p class="text-dark"><strong>Date:</strong> {{ event.date }}</p>
+                                <p class="text-dark"><strong>Time:</strong> {{ event.time }}</p>
+                                <a href="{% url 'edit_event' event.id %}" class="btn btn-primary mt-auto">Edit</a>
+                                <a href="{% url 'delete_event' event.id %}" class="btn btn-danger mt-2">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
-        </div>
-            
-               
-            
-        {% endfor %}
-    </ul>
-    
-</body>
-</html>
-{% endblock %}
+        
+    {% endblock %}
+<a href="{% url 'edit_event' event.id %}" class="btn btn-primary mt-auto">Edit</a>
+<a href="{% url 'delete_event' event.id %}" class="btn btn-danger mt-2">Delete</a>

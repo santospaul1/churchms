@@ -27,15 +27,15 @@
                 </tr>
             </thead>
             <tbody>
-                {% for volunteer in volunteers %}
+                {% for volunt in volunteers %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td>{{ volunteer.first_name }} </td>
-                    <td>{{ volunteer.last_name }}</td>
-                    <td>{{ volunteer.interests }}</td>
-                    <td>{{ volunteer.skills }}</td>
-                    <td>{{ volunteer.availability }}</td>
-                    <td><a href="{% url 'volunteer_detail' volunteer.id %}">View More </a></td>
+                    <td>{{ volunt.first_name }} {{ volunt.Volunteer.first_name }} </td>
+                    <td>{{ volunt.last_name }} {{ volunt.Volunteer.last_name }} </td>
+                    <td>{{ volunt.interests }}</td>
+                    <td>{{ volunt.skills }}</td>
+                    <td>{{ volunt.availability }}</td>
+                    <td><a href="{% url 'volunteer_detail' volunt.id %}">View More </a></td>
                     
                     
                     

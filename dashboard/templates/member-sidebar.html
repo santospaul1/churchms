@@ -1,0 +1,112 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Sidebar</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{% static 'css/side.css' %}">
+
+  <style>
+    .resized {
+      width: 40%; 
+      height: auto; 
+    }
+    .nav_bar {
+      text-align: end;
+      padding-top: 2px;
+    }
+    .resized-image {
+      width: 5%;
+    }
+    .spinner-grow {
+      width: 3rem;
+      height: 3rem;
+    }
+    #loadingSpinner {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="loadingSpinner">
+    <div class="spinner-grow" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <div class="wrapper d-flex align-items-stretch">
+    <nav id="sidebar">
+      <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+          <i class="fa fa-bars"></i>
+          <span class="sr-only">Toggle Menu</span>
+        </button>
+      </div>
+      <div class="p-4">
+        <center>
+          <img src="{% static 'images/church.jpg' %}" alt="logo" class="resized">
+        </center>
+        <ul class="list-unstyled components mb-5">
+          
+          
+          <li class="{% if request.resolver_match.url_name == 'service_list' %}active{% endif %}">
+            <a href="{% url 'view_services' %}"><span class="fa fa-sticky-note mr-3"></span> Service</a>
+          </li>
+          <li class="{% if request.resolver_match.url_name == 'event_list' %}active{% endif %}">
+            <a href="{% url 'view_events' %}"><span class="fa fa-briefcase mr-3"></span> Events</a>
+          </li>
+          
+          <li class="{% if request.resolver_match.url_name == 'volunteer_list' %}active{% endif %}">
+            <a href="{% url 'member_volunteer' %}"><span class="fa fa-user mr-3"></span> Volunteers</a>
+          </li>
+          <li class="{% if request.resolver_match.url_name == 'location_list' %}active{% endif %}">
+            <a href="{% url 'view_location' %}"><span class="fa fa-map-marker mr-3"></span> Location</a>
+          </li>
+          <li class="{% if request.resolver_match.url_name == 'contact_list' %}active{% endif %}">
+            <a href="{% url 'contact' %}"><span class="fa fa-paper-plane mr-3"></span> Contacts</a>
+          </li>
+        </ul>
+        <div class="footer">
+          <p>
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="icon-heart" aria-hidden="true"></i>
+          </p>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content" class="p-4 p-md-5 pt-5">
+      <div class="nav_bar">
+        Welcome {{ user }} &emsp;
+        <a href="{% url 'user_logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+      </div>
+      
+      {% block content %}
+      {% endblock %}
+    </div>
+  </div>
+
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/popper.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('loadingSpinner').style.display = 'block';
+    });
+
+    window.addEventListener('load', function() {
+      document.getElementById('loadingSpinner').style.display = 'none';
+    });
+  </script>
+</body>
+</html>
