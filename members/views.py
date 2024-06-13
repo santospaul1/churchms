@@ -3,15 +3,79 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.db.models import Q
-
+from django.contrib.auth.decorators import login_required
 from dashboard.models import Location
 from events.models import Event, Service
+from groups.models import SmallGroup
 from volunteers.forms import VolunteerForm
 from volunteers.models import Volunteer
 
 
-from .forms import MemberForm, Volunteer_memberForm
-from .models import Member
+from .forms import AdminLoginForm, MemberForm, MemberRegistrationForm, Volunteer_memberForm
+from .models import Admin, Member
+def admin_login(request):
+    if request.method == 'POST':
+        form = AdminLoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                try:
+                    admin = Admin.objects.get(user=user)
+                    login(request, user)
+                    return redirect('admin_dashboard')  # Redirect to admin dashboard after login
+                except Admin.DoesNotExist:
+                    form.add_error(None, 'You do not have admin privileges.')
+            else:
+                form.add_error(None, 'Invalid username or password')
+    else:
+        form = AdminLoginForm()
+    
+    return render(request, 'members/admin_login.html', {'form': form})
+
+@login_required
+def add_admin(request):
+    if request.method == 'POST':
+        fullname = request.POST.get('fullname')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        username = request.POST.get('username')
+
+        # Create a new User instance
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password
+        )
+
+        # Create a new Admin instance and associate it with the created user
+        admin = Admin.objects.create(
+            user=user,
+            fullname=fullname,
+            email=email,
+            username=username
+        )
+
+        messages.success(request, 'New admin has been added successfully')
+        return redirect('manage_admin')  # Redirect to the same page to show the message
+
+    return render(request, 'admin/add_admin.html')
+
+@login_required
+def manage_admin(request):
+    if request.method == "GET" and 'del' in request.GET:
+        id = request.GET.get('del')
+        try:
+            admin = Admin.objects.get(id=id)
+
+            admin.delete()
+            messages.success(request, "The selected admin account has been deleted")
+        except Admin.DoesNotExist:
+            messages.error(request, "Admin account not found")
+
+    admins = Admin.objects.all()
+    return render(request, 'admin/manage_admin.html', {'admins': admins})
 
 def member_list(request):
     members = Member.objects.all()
@@ -34,6 +98,20 @@ def add_member(request):
     else:
         form = MemberForm()
     return render(request, 'members/add_edit_member.html', {'form': form})
+def member_registration(request):
+    if request.method == 'POST':
+        form = MemberRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('member_dashboard')  # Redirect to member dashboard after registration
+    else:
+        form = MemberRegistrationForm()
+    
+    return render(request, 'members/member_registration.html', {'form': form})
 
 def member_detail(request, member_id):
     member = get_object_or_404(Member, pk=member_id)
@@ -97,6 +175,10 @@ def view_location(request):
 def view_services(request):
     services = Service.objects.all().order_by('-id')    
     return render(request, 'views/service_list.html', {'services': services})
+def groups_list(request):
+    groups = SmallGroup.objects.all().order_by('-id')
+
+    return render(request, 'views/group_list.html', {'groups': groups})
 
 #Member Functions
 def member_volunteer(request):

@@ -7,6 +7,9 @@ class SmallGroupForm(forms.ModelForm):
         model = SmallGroup
         fields = ['name', 'description']
 
+        Widget = { 
+            'description': forms.Textarea(attrs={'rows': 2}),
+        }
 class MeetingForm(forms.ModelForm):
     class Meta:
         model = Meeting

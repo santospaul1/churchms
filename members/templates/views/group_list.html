@@ -1,0 +1,35 @@
+{% extends "member-sidebar.html" %}
+{% load static %}
+{% block content %}
+<center><a href="{% url 'add_group'  %}" class="btn btn-primary">Add Group</a></center>
+
+    <h1>Group List</h1>
+    <div class="container-fluid">
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>S.N</th>
+                        <th>Group Name</th>
+                        <th>Purpose</th>
+                        <th>Registered Members</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for group in groups %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ group.name }}</td>
+                        <td>{{ group.description }}</td>
+                        <td><a href="{% url 'group_detail' group.id %}">View More </a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+
+    
+</div>
+{% endblock %}

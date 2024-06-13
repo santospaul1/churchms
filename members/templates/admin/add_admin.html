@@ -1,0 +1,26 @@
+{% extends 'admin-sidebar.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Add Admin</h1>
+<form class="form-group" method="post">
+    {% csrf_token %}
+    <label for="fullname">Name:</label>
+    <input type="text" name="fullname" class="form-control" required>
+
+    <label for="email">Email:</label>
+    <input type="email" name="email" class="form-control" required>
+
+    <label for="username">UserName:</label>
+    <input type="text" name="username" class="form-control" required>
+
+    <label for="password">Password:</label>
+    <input type="password" name="password" class="form-control" required>
+
+    <button type="submit" name="add" class="btn btn-primary">Add</button>
+</form>
+
+
+
+    </div>
+{% endblock content %}

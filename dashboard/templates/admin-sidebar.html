@@ -60,7 +60,7 @@
             <a href="{% url 'admin_dashboard' %}"><span class="fa fa-home mr-3"></span> Home</a>
           </li>
           <li class="{% if request.resolver_match.url_name == 'member_list' %}active{% endif %}">
-            <a href="{% url 'member_list' %}"><span class="fa fa-user-circle-o mr-3"></span> Members</a>
+            <a href="{% url 'member_list' %}"><span class="fa fa-users mr-3"></span> Members</a>
           </li>
           <li class="{% if request.resolver_match.url_name == 'service_list' %}active{% endif %}">
             <a href="{% url 'service_list' %}"><span class="fa fa-sticky-note mr-3"></span> Service</a>
@@ -83,6 +83,11 @@
           <li class="{% if request.resolver_match.url_name == 'contact_list' %}active{% endif %}">
             <a href="{% url 'contact_list' %}"><span class="fa fa-paper-plane mr-3"></span> Contacts</a>
           </li>
+          <li class="{% if request.resolver_match.url_name == 'manage_admin' %}active{% endif %}">
+            <a href="{% url 'manage_admin' %}"><span class="fa fa-user-circle-o mr-3"></span> Admins</a>
+          </li>
+          
+
         </ul>
         <div class="footer">
           <p>

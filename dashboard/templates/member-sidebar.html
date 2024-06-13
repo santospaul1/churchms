@@ -68,6 +68,9 @@
           <li class="{% if request.resolver_match.url_name == 'volunteer_list' %}active{% endif %}">
             <a href="{% url 'member_volunteer' %}"><span class="fa fa-user mr-3"></span> Volunteers</a>
           </li>
+          <li class="{% if request.resolver_match.url_name == 'group_list' %}active{% endif %}">
+            <a href="{% url 'groups_list' %}"><span class="fa fa-suitcase mr-3"></span> Groups</a>
+          </li>
           <li class="{% if request.resolver_match.url_name == 'location_list' %}active{% endif %}">
             <a href="{% url 'view_location' %}"><span class="fa fa-map-marker mr-3"></span> Location</a>
           </li>
