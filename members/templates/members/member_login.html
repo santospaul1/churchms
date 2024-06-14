@@ -7,6 +7,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
 </head>
 
 <body>
@@ -29,16 +30,23 @@
                         </div>
                         <div class="links">
                             <a href="#">Forgot Password</a>
-                            <a href="{% url 'register' %}">Signup</a>
+                            <a href="{% url 'member_registration' %}">Signup</a>
                         </div>
                         <div class="inputBox">
                             <input type="submit" value="Login">
                         </div>
+
                     </form>
+                    <div class="form-footer text-center mt-5">
+                        <p class="text-muted"><a href="{% url 'admin_login' %}" class="text-white s-20">Go to Admin Panel</a></p>
+                    </div>
                 </div>
             </div>
+            
         </div>
+        
     </section>
+    
 </body>
 
 </html>

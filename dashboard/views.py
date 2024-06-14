@@ -6,13 +6,11 @@ from django.contrib.auth.decorators import login_required
 from events.models import Event, Meeting, Service
 from groups.models import SmallGroup
 from members.models import Member
-from django.contrib.auth.forms import UserCreationForm
-from django.views.generic.edit import FormView
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from volunteers.models import Volunteer
 from .forms import ContactForm, LocationForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import logout
 
 
 def dashboard(request):
@@ -24,8 +22,6 @@ def dashboard(request):
     else:
         form = ContactForm()
     current_date = timezone.now().date()
-    # Add any logic here to fetch data for the dashboard
-    # For example, you can fetch recent events, statistics, etc.
     services = Service.objects.all()
     events = Event.objects.filter(date__gte=current_date).order_by('date')
     locations = Location.objects.all()
@@ -87,12 +83,7 @@ def user_logout(request):
     logout(request)
     return redirect('dashboard')
 
-class CustomLoginView(LoginView):
-    template_name = 'login.html' 
 
-    def get_success_url(self):
-        # Customize the redirect URL after successful login
-        return reverse_lazy('admin_dashboard') 
 def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -115,22 +106,6 @@ def contact_list(request):
 
 def contact_success(request):
     return render(request, 'contact_success.html')
-
-class RegisterView(FormView):
-    template_name = 'register.html'  # Path to your registration template
-    form_class = UserCreationForm
-    success_url = '/login/'
-
-    def form_valid(self, form):
-        # Save the user to the database
-        form.save()
-        # Optionally, log the user in after registration
-        username = form.cleaned_data['username']
-        password = form.cleaned_data['password1']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(self.request, user)
-        return super().form_valid(form)
     
 def location_list(request):
     locations = Location.objects.all()

@@ -1,5 +1,7 @@
 # In volunteers/views.py
 from django.shortcuts import render, redirect
+
+from members.forms import Volunteer_memberForm
 from .models import Volunteer
 from .forms import VolunteerForm
 
@@ -21,12 +23,12 @@ def add_volunteer(request):
 def edit_volunteer(request, volunteer_id):
     volunteer = Volunteer.objects.get(id=volunteer_id)
     if request.method == 'POST':
-        form = VolunteerForm(request.POST, instance=volunteer)
+        form = Volunteer_memberForm(request.POST, instance=volunteer)
         if form.is_valid():
             form.save()
             return redirect('volunteer_list')
     else:
-        form = VolunteerForm(instance=volunteer)
+        form = Volunteer_memberForm(instance=volunteer)
     return render(request, 'volunteers/add_edit_volunteer.html', {'form': form})
 
 def volunteer_detail(request, volunteer_id):

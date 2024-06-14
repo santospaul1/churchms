@@ -21,6 +21,7 @@
                     <tr>
                         <td>{{ forloop.counter }}</td>
                         <td>{{ group.name }}</td>
+                        
                         <td>{{ group.description }}</td>
                         <td><a href="{% url 'group_detail' group.id %}">View More </a></td>
                     </tr>

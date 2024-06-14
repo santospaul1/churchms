@@ -6,15 +6,19 @@
 <div class="container mt-5">
     <h1>{{ group.name }}</h1>
     <p>{{ group.description }}</p>
+    
     <h2>Members</h2>
     <ul>
         {% for member in group.groupmember_set.all %}
+        
         <li>
             {{ member.member.username }}
             <a href="{% url 'remove_group_member' group.id member.member.id %}" class="btn btn-danger btn-sm">Remove</a>
         </li>
         {% endfor %}
     </ul>
+    
     <a href="{% url 'add_group_member' group.id %}" class="btn btn-primary">Add Member</a>
+    <a href="{% url 'add_meeting' group.id %}" class="btn btn-primary">Add Meeting</a>
 </div>
 {% endblock %}

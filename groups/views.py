@@ -53,4 +53,6 @@ def add_meeting(request, group_id):
 
 def group_detail(request, group_id):
     group = SmallGroup.objects.get(pk=group_id)
-    return render(request, 'groups/group_detail.html', {'group': group})
+    meeting = Meeting.objects.all()
+
+    return render(request, 'groups/group_detail.html', {'group': group, 'meeting':meeting})

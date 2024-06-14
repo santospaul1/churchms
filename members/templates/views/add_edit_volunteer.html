@@ -1,0 +1,15 @@
+{% extends "member-sidebar.html" %}
+
+{% block content %}
+{% load static %}
+    <div class="container">
+        <h1>{% if form.instance.pk %}Edit Volunteer{% else %}Add Volunteer{% endif %}</h1>
+        <form method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">{% if form.instance.pk %}Update{% else %}Add{% endif %}</button>
+            </div>
+        </form>
+    </div>
+ {% endblock %}

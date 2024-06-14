@@ -1,7 +1,7 @@
 {% extends "member-sidebar.html" %}
 {% load static %}
 {% block content %}
-<center><a href="{% url 'add_group'  %}" class="btn btn-primary">Add Group</a></center>
+
 
     <h1>Group List</h1>
     <div class="container-fluid">
@@ -22,7 +22,7 @@
                         <td>{{ forloop.counter }}</td>
                         <td>{{ group.name }}</td>
                         <td>{{ group.description }}</td>
-                        <td><a href="{% url 'group_detail' group.id %}">View More </a></td>
+                        <td><a href="{% url 'groupdetail' group.id %}">View More </a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -1,18 +1,17 @@
+from django.utils import timezone
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from django.db.models import Q
 from django.contrib.auth.decorators import login_required
-from dashboard.models import Location
-from events.models import Event, Service
-from groups.models import SmallGroup
-from volunteers.forms import VolunteerForm
+from dashboard.forms import MemberContactForm
+from dashboard.models import Contact, Location
+from events.models import Event, Meeting, Service
+from groups.models import  SmallGroup
 from volunteers.models import Volunteer
-
-
 from .forms import AdminLoginForm, MemberForm, MemberRegistrationForm, Volunteer_memberForm
 from .models import Admin, Member
+
 def admin_login(request):
     if request.method == 'POST':
         form = AdminLoginForm(request.POST)
@@ -98,6 +97,7 @@ def add_member(request):
     else:
         form = MemberForm()
     return render(request, 'members/add_edit_member.html', {'form': form})
+
 def member_registration(request):
     if request.method == 'POST':
         form = MemberRegistrationForm(request.POST)
@@ -154,7 +154,7 @@ def member_login(request):
             try:
                 admin_user = Member.objects.get(user=user)
                 login(request, user)
-                return redirect('member_dashboard')
+                return redirect('view_services')
             except Member.DoesNotExist:
                 messages.error(request, 'You are not authorized to access this area')
         else:
@@ -165,8 +165,17 @@ def member_login(request):
 
     #Functions to dislay What member can view
 def view_event(request):
-    events = Event.objects.all().order_by('-id')    
-    return render(request, 'views/event_list.html', {'events': events})
+    current_date = timezone.now().date()
+    events = Event.objects.filter(date__gte=current_date).order_by('date')
+    all_events = Event.objects.all().order_by('-id')    
+    return render(request, 'views/event_list.html', {'events': events, 'all_events':all_events})
+
+def view_meeting(request):
+    current_date = timezone.now().date()
+    events = Meeting.objects.filter(date__gte=current_date).order_by('date')
+    all_events = Meeting.objects.all().order_by('-id')    
+    return render(request, 'views/event_list.html', {'events': events, 'all_events':all_events})
+
 
 def view_location(request):
     locations = Location.objects.all().order_by('-id')    
@@ -179,6 +188,29 @@ def groups_list(request):
     groups = SmallGroup.objects.all().order_by('-id')
 
     return render(request, 'views/group_list.html', {'groups': groups})
+
+@login_required
+def volunteer_history(request):
+    user = request.user
+
+    try:
+        # Retrieve the Member instance associated with the logged-in user
+        volunteer = Member.objects.get(user=user)
+    except Member.DoesNotExist:
+        # Handle the case where the Member instance does not exist
+        error = "Member profile not found for the current user."
+        
+
+    # Filter volunteer history by the Employee instance
+    volunteer_history = Volunteer.objects.filter(volunteer=volunteer).order_by('-id')
+    
+
+    context = {
+        'volunteer_history': volunteer_history
+    }
+
+    return render(request, 'views/volunteer_history.html', context)
+
 
 #Member Functions
 def member_volunteer(request):
@@ -197,15 +229,72 @@ def member_volunteer(request):
                 error = "Member profile not found for the current user."
                 return render(request, 'functions/add_edit_volunteer.html', {'form': form, 'error':error})
             Volunteer.objects.create(
-                Volunteer = member,
+                volunteer = member,
                 skills = skills,
                 interests=interests,
                 availability = availability
 
             )
-            msg = "Leave application submitted successfully."
+            return redirect('volunteer_history')
         else:
             error = "Form is not valid."
     else:
         form = Volunteer_memberForm()
     return render(request, 'functions/add_edit_volunteer.html', {'form': form, 'error':error, 'msg':msg})
+
+def edit_member_volunteer(request, volunteer_id):
+    volunteer = Volunteer.objects.get(id=volunteer_id)
+    if request.method == 'POST':
+        form = Volunteer_memberForm(request.POST, instance=volunteer)
+        if form.is_valid():
+            form.save()
+            return redirect('volunteer_history')
+    else:
+        form = Volunteer_memberForm(instance=volunteer)
+    return render(request, 'views/add_edit_volunteer.html', {'form': form})
+
+
+def member_volunteer_detail(request, volunteer_id):
+    volunteer = Volunteer.objects.get(id=volunteer_id)
+    return render(request, 'views/volunteer_detail.html', {'volunteer': volunteer})
+
+def delete_member_volunteer(request, volunteer_id):
+    volunteer = Volunteer.objects.get(id=volunteer_id)
+    if request.method == 'POST':
+        volunteer.delete()
+        return redirect('volunteer_history')
+    return render(request, 'views/delete_volunteer.html', {'volunteer': volunteer})
+
+
+def groupdetail(request, group_id):
+    group = SmallGroup.objects.get(pk=group_id)
+    
+    return render(request, 'views/group_detail.html', {'group': group,})
+
+
+def contact_us(request):
+    error = None
+    msg = None
+    if request.method == 'POST':
+        form = MemberContactForm(request.POST)
+        if form.is_valid():
+            message = form.cleaned_data['message']
+            
+            try:
+                member = Member.objects.get(user=request.user)
+            except Member.DoesNotExist:
+                error = "Member profile not found for the current user."
+                return render(request, 'views/contact.html', {'form': form, 'error':error})
+            
+            Contact.objects.create(
+                sender=member,
+                message= message
+            )
+            msg = "Form submitted successfully."
+            return redirect('contact_success')  # Redirect to a success page
+        else:
+            error = "Form is not valid."
+    else:
+        form = MemberContactForm()
+    return render(request, 'views/contact.html', {'form': form, 'msg':msg, 'error':error})
+

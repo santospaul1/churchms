@@ -1,7 +1,10 @@
 # models.py
 from django.db import models
 
+from members.models import Member
+
 class Contact(models.Model):
+    sender = models.ForeignKey(Member, on_delete=models.CASCADE, default=None, null=True)
     name = models.CharField(max_length=100)
     email = models.EmailField()
     message = models.TextField()

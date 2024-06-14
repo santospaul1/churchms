@@ -20,10 +20,10 @@
             {% for contact in contacts %}
             <tr>
                 <td>{{ forloop.counter }}</td>
-                <td>{{ contact.name }} </td>
-                <td>{{ contact.email }}</td>
+                <td><h6 class="text-dark"> {{contact.name }}</h6> <h6 class="text-primary"> {{contact.sender.first_name}} &nbsp; {{ contact.sender.last_name}} </h6> </td>
+                <td>{{ contact.email }} {{ contact.sender.email }}</td>
                 <td>{{ contact.message }}</td>
-                <td>{{ contact.phone }}</td>
+                <td>{{ contact.sender.phone_number }} {{ contact.phone }}  </td>
                 <td>{{ contact.created_at }}</td>
                 
                 

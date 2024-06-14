@@ -1,4 +1,4 @@
-{% extends "admin-sidebar.html" %}
+{% extends "member-sidebar.html" %}
 
 {% block content %}
 {% load static %}
@@ -10,7 +10,7 @@
 
 <body>
     <center><div class="add-volunteer">
-        <a href="{% url 'add_volunteer' %}" class="btn btn-primary">Add Volunteer</a>
+        <a href="{% url 'member_volunteer' %}" class="btn btn-primary">Add Volunteer</a>
     </div></center>
     <h1>Volunteers List</h1>
     <div class="table-responsive">
@@ -27,7 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for volunt in volunteers %}
+                {% for volunt in volunteer_history %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td>{{ volunt.first_name }} {{ volunt.volunteer.first_name }} </td>
@@ -35,7 +35,7 @@
                     <td>{{ volunt.interests }}</td>
                     <td>{{ volunt.skills }}</td>
                     <td>{{ volunt.availability }}</td>
-                    <td><a href="{% url 'volunteer_detail' volunt.id %}">View More </a></td>
+                    <td><a href="{% url 'member_volunteer_detail' volunt.id %}">View More </a></td>
                     
                     
                     

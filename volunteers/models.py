@@ -12,7 +12,7 @@ class Volunteer(models.Model):
     ]
 
     INTEREST_CHOICES = SKILL_CHOICES  # Assuming interests are the same as skills. Adjust as needed.
-    Volunteer = models.ForeignKey(Member, on_delete=models.CASCADE, default=None, null=True)
+    volunteer = models.ForeignKey(Member, on_delete=models.CASCADE, default=None, null=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField(unique=False)
@@ -21,6 +21,5 @@ class Volunteer(models.Model):
     skills = MultiSelectField(choices=SKILL_CHOICES, blank=True, max_choices=10, max_length=100)
     interests = MultiSelectField(choices=INTEREST_CHOICES, blank=True, max_choices=10, max_length=100)
     availability = models.DateField(blank=True, null=True)
-
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

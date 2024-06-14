@@ -1,0 +1,13 @@
+{% extends "member-sidebar.html" %}
+
+{% block content %}
+{% load static %}
+
+    <h1>Volunteer Detail</h1>
+    <p><strong>Name:</strong> {{ volunteer.first_name }} {{ volunteer.volunteer.first_name }} {{ volunteer.last_name }} {{ volunteer.Volunteer.last_name }}</p>
+    <p><strong>Email:</strong> {{ volunteer.email }} {{ volunteer.volunteer.email }}</p>
+    <p><strong>Phone Number:</strong> {{ volunteer.phone_number }}  {{ volunteer.volunteer.phone_number }}</p>
+    <p><strong>Address:</strong> {{ volunteer.address }} {{ volunteer.volunteer.address }}</p>
+    <a href="{% url 'edit_member_volunteer' volunteer.id %}" class="btn btn-secondary">Edit</a>
+    <a href="{% url 'delete_member_volunteer' volunteer.id %}" class="btn btn-danger">Delete</a>
+{% endblock %}
