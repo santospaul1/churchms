@@ -1,0 +1,14 @@
+
+{% extends "member-sidebar.html" %}
+{% load static %}
+ {% block content %}  
+    <div class="container">
+        <h2>Make a Donation</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Donate</button>
+        </form>
+    </div>
+
+{% endblock %}

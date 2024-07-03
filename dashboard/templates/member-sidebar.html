@@ -70,6 +70,9 @@
           <li class="{% if request.resolver_match.url_name == 'member_volunteer' %}active{% endif %}">
             <a href="{% url 'volunteer_history' %}"><span class="fa fa-user mr-3"></span> Volunteers</a>
           </li>
+          <li class="{% if request.resolver_match.url_name == 'make_donation' %}active{% endif %}">
+            <a href="{% url 'make_donation' %}"><span class="fa fa-usd  mr-3"></span> Donate</a>
+          </li>
           <li class="{% if request.resolver_match.url_name == 'group_list' %}active{% endif %}">
             <a href="{% url 'groups_list' %}"><span class="fa fa-suitcase mr-3"></span> Groups</a>
           </li>

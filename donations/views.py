@@ -1,32 +1,53 @@
-# In donations/views.py
+# donations/views.py
 from django.shortcuts import render, redirect
-from .models import Donation, FinancialTransaction
-from .forms import DonationForm, FinancialTransactionForm
+from django.contrib.auth.decorators import login_required
+from .models import Donation, Spending
+from .forms import DonationForm, SpendingForm
+from django.db.models import Sum
 
-def donation_list(request):
-    donations = Donation.objects.all()
-    return render(request, 'donations/donation_list.html', {'donations': donations})
-
-def add_donation(request):
+@login_required
+def make_donation(request):
     if request.method == 'POST':
         form = DonationForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('donation_list')
+            donation = form.save(commit=False)
+            donation.member = request.user.member
+            donation.save()
+            return redirect('donation_success')
     else:
         form = DonationForm()
-    return render(request, 'donations/add_edit_donation.html', {'form': form})
+    return render(request, 'donations/make_donation.html', {'form': form})
 
-def finance_list(request):
-    transactions = FinancialTransaction.objects.all()
-    return render(request, 'donations/finance_list.html', {'transactions': transactions})
+@login_required
+def donation_success(request):
+    return render(request, 'donations/donation_success.html')
 
-def add_transaction(request):
+@login_required
+def admin_view_donations(request):
+    if not request.user.is_staff:
+        return redirect('home')
+    donations = Donation.objects.all()
+    spendings = Spending.objects.all()
+    total_donations = donations.aggregate(Sum('amount'))['amount__sum'] or 0
+    total_spent = spendings.aggregate(Sum('amount'))['amount__sum'] or 0
+    remaining_balance = total_donations - total_spent
+    return render(request, 'donations/admin_view_donations.html', {
+        'donations': donations,
+        'spendings': spendings,
+        'total_donations': total_donations,
+        'total_spent': total_spent,
+        'remaining_balance': remaining_balance
+    })
+
+@login_required
+def add_spending(request):
+    if not request.user.is_staff:
+        return redirect('home')
     if request.method == 'POST':
-        form = FinancialTransactionForm(request.POST)
+        form = SpendingForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('finance_list')
+            return redirect('admin_view_donations')
     else:
-        form = FinancialTransactionForm()
-    return render(request, 'donations/add_edit_transaction.html', {'form': form})
+        form = SpendingForm()
+    return render(request, 'donations/add_spending.html', {'form': form})

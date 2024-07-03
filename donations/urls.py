@@ -1,10 +1,11 @@
-# In donations/urls.py
+# donations/urls.py
 from django.urls import path
-from . import views
+from .views import add_spending, make_donation, donation_success, admin_view_donations
 
 urlpatterns = [
-    path('donations/', views.donation_list, name='donation_list'),
-    path('donations/add/', views.add_donation, name='add_donation'),
-    path('finance/', views.finance_list, name='finance_list'),
-    path('finance/add/', views.add_transaction, name='add_transaction'),
+    path('make_donation/', make_donation, name='make_donation'),
+    path('donation_success/', donation_success, name='donation_success'),
+    path('admin_view_donations/', admin_view_donations, name='admin_view_donations'),
+    path('admin/add_spending/', add_spending, name='add_spending'),
 ]
+

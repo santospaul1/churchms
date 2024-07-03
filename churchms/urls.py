@@ -19,10 +19,9 @@ from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
 from dashboard.views import dashboard
-from donations.views import donation_list
 from events.views import event_list
 from groups.views import group_list
-from members.views import member_detail, member_list
+from members.views import  member_list
 from volunteers.views import volunteer_list
 
 urlpatterns = [
@@ -30,7 +29,6 @@ path('', dashboard, name='dashboard'),
 path('member_list', member_list, name='member_list'),
 path('events/', event_list, name='event_list'),
 path('volunteers/', volunteer_list, name='volunteer_list'),
-path('donations/', donation_list, name='donation_list'),
 path('groups/', group_list, name='group_list'),
 
     

@@ -71,8 +71,12 @@
           <li class="{% if request.resolver_match.url_name == 'meeting_list' %}active{% endif %}">
             <a href="{% url 'meeting_list' %}"><span class="fa fa-meetup mr-3"></span> Meetings</a>
           </li>
+          
           <li class="{% if request.resolver_match.url_name == 'group_list' %}active{% endif %}">
             <a href="{% url 'group_list' %}"><span class="fa fa-suitcase mr-3"></span> Groups</a>
+          </li>
+          <li class="{% if request.resolver_match.url_name == 'admin_view_donations' %}active{% endif %}">
+            <a href="{% url 'admin_view_donations' %}"><span class="fa fa-usd mr-3"></span> Donations</a>
           </li>
           <li class="{% if request.resolver_match.url_name == 'volunteer_list' %}active{% endif %}">
             <a href="{% url 'volunteer_list' %}"><span class="fa fa-user mr-3"></span> Volunteers</a>
