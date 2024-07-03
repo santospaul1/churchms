@@ -45,12 +45,19 @@ class AdminLoginForm(forms.Form):
 
 
 class Volunteer_memberForm(forms.ModelForm):
+    skills = forms.MultipleChoiceField(choices=Volunteer.SKILL_CHOICES, widget=forms.CheckboxSelectMultiple, required=False)
+    interests = forms.MultipleChoiceField(choices=Volunteer.INTEREST_CHOICES, widget=forms.CheckboxSelectMultiple, required=False)
     class Meta:
         model = Volunteer
         fields = [ 'skills', 'interests', 'availability']
         widgets = {
-            'skills': forms.CheckboxSelectMultiple,
-            'interests': forms.CheckboxSelectMultiple,
             'availability': forms.DateInput(attrs={'type': 'date'}),
         }
 
+    def save(self, commit=True):
+        Volunteer.volunteer = super().save(commit=False)
+        Volunteer.volunteer.skills = ','.join(self.cleaned_data['skills'])
+        Volunteer.volunteer.interests = ','.join(self.cleaned_data['interests'])
+        if commit:
+            Volunteer.volunteer.save()
+        return Volunteer.volunteer
